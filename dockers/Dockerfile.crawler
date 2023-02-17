@@ -1,0 +1,16 @@
+FROM selenium/standalone-chrome:100.0
+
+RUN sudo apt-get update && \
+    sudo apt-get install --no-install-recommends -y python3-pip python3-dev && \
+	  sudo rm -rf /var/lib/apt/lists/* && sudo rm -fr /var/cache/apt/archives/*
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN sudo pip3 install -r requirements.txt
+
+COPY . .
+
+CMD bin/wait-for-it -t 120 $KAFKA_HOST -- echo "Kafka is up." && \
+    bin/wait-for-it -t 120 $ES_HOST -- echo "Elasticsearch is up." && \
+    python3 crawler.py --es-host $ES_SCHEMA://$ES_HOST --es-index $ES_INDEX --kafka-host $KAFKA_HOST -v

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker build -t crawler:latest -f Dockerfile . && \
+docker run -it --network host --env-file .env crawler:latest
