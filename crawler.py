@@ -35,13 +35,7 @@ while True:
             continue
 
     if log[0] == "1":
-        data = json.loads(log[2])
-
-    # data = {
-    #     "website": "www.sahamyab.com",
-    #     "tag": "ختور",
-    #     "url": "https://www.sahamyab.com/hashtag/%D8%AE%D8%AA%D9%88%D8%B1",
-    # }
+        data = json.loads(log[1])
 
     if data is None:
         if args.verbose:

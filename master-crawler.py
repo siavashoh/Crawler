@@ -1,4 +1,4 @@
-from asyncio import sleep
+from time import sleep
 import json
 from libkafka import Kafka
 import argparse
@@ -16,35 +16,34 @@ kafka.init_producer(bootstrap_servers=args.kafka_host)
 
 urls = [
     {
-        "website": "sahamyab.com",
+        "website": "www.sahamyab.com",
         "tag": "ختور",
         "url": "https://www.sahamyab.com/hashtag/%D8%AE%D8%AA%D9%88%D8%B1",
     },
     {
-        "website": "sahamyab.com",
+        "website": "www.sahamyab.com",
         "tag": "دی",
         "url": "https://www.sahamyab.com/hashtag/%D8%AF%DB%8C",
     },
     {
-        "website": "sahamyab.com",
+        "website": "www.sahamyab.com",
         "tag": "خودرو",
         "url": "https://www.sahamyab.com/hashtag/%D8%AE%D9%88%D8%AF%D8%B1%D9%88",
     },
     {
-        "website": "sahamyab.com",
+        "website": "www.sahamyab.com",
         "tag": "خساپا",
         "url": "https://www.sahamyab.com/hashtag/%D8%AE%D8%B3%D8%A7%D9%BE%D8%A7",
     },
     {
-        "website": "sahamyab.com",
+        "website": "www.sahamyab.com",
         "tag": "خگستر",
         "url": "https://www.sahamyab.com/hashtag/%D8%AE%DA%AF%D8%B3%D8%AA%D8%B1",
     },
 ]
 
-
-for u in urls:
-    kafka.log("urls", 1, [json.dumps(u)])
-    print("------------------------------------------------------")
-    print(f"send to kafka {u}")
-    print("------------------------------------------------------")
+while True:
+    for u in urls:
+        kafka.log("crawler-urls", 1, [json.dumps(u)])
+        print("Logging:", u)
+    sleep(30)
